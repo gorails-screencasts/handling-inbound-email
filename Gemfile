@@ -68,3 +68,6 @@ gem 'omniauth-twitter', '~> 1.4'
 gem 'redis', '~> 3.3'
 gem 'sidekiq', '~> 5.0'
 gem 'webpacker', '~> 3.0'
+
+gem 'griddler'
+gem 'griddler-sendgrid'

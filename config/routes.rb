@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  mount_griddler('/email/incoming')
+
   namespace :admin do
     resources :users
     resources :announcements
