@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
+  resources :forum_threads do
+    resources :posts
+  end
+
   get '/privacy', to: 'home#privacy'
   get '/terms', to: 'home#terms'
   resources :notifications, only: [:index]
@@ -18,6 +22,6 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
-  root to: 'home#index'
+  root to: 'forum_threads#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

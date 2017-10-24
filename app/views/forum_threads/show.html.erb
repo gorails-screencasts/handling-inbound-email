@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @forum_thread.user.name %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @forum_thread.subject %>
+</p>
+
+<% @forum_thread.posts.each do |post| %>
+  <div class="card card-body">
+    <strong><%= post.user.name %></strong>
+    <%= simple_format post.body %>
+  </div>
+<% end %>
+
+<%= render "posts/form", forum_thread: @forum_thread, post: Post.new %>

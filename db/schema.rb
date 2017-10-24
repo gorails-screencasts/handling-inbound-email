@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024194426) do
+ActiveRecord::Schema.define(version: 20171024194952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20171024194426) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "forum_threads", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "subject"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_forum_threads_on_user_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "recipient_id"
     t.integer "actor_id"
@@ -33,6 +41,16 @@ ActiveRecord::Schema.define(version: 20171024194426) do
     t.string "notifiable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.bigint "forum_thread_id"
+    t.bigint "user_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forum_thread_id"], name: "index_posts_on_forum_thread_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,4 +73,7 @@ ActiveRecord::Schema.define(version: 20171024194426) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "forum_threads", "users"
+  add_foreign_key "posts", "forum_threads"
+  add_foreign_key "posts", "users"
 end

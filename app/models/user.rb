@@ -6,9 +6,5 @@ class User < ApplicationRecord
   has_many :notifications, foreign_key: :recipient_id
   has_many :services
 
-  validates :first_name, :last_name, presence: true
-
-  def name
-    "#{first_name} #{last_name}"
-  end
+  validates :name, presence: true
 end
